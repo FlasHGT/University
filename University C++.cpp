@@ -1546,3 +1546,317 @@ using namespace std;
 //
 //    cout << "Nobody won, because the board is full" << endl;
 //}
+
+//int main()
+//{
+//    int n, prevN = 1;
+//    int posNum = 0, negNum = 0, zeros = 0;
+//
+//    cin >> n;
+//
+//    while (n == prevN == 0)
+//    {
+//        if (n > 0) 
+//        {
+//            posNum++;
+//        }
+//        else if (n < 0)
+//        {
+//            negNum++;
+//        }
+//        else
+//        {
+//            zeros++;
+//        }
+//
+//        prevN = n;
+//
+//        cin >> n;
+//    }
+//
+//    if (n == 0) {
+//        zeros++;
+//    }
+//
+//    cout << endl;
+//
+//    cout << "Positive numbers: " << posNum << endl;
+//    cout << "Negative numbers: " << negNum << endl;
+//    cout << "Zeros: " << zeros << endl;
+//}
+
+
+//int main()
+//{
+//    int skai, sauc;
+//    float result;
+//    int whichToUse;
+//
+//    cin >> skai >> sauc;
+//
+//    result = float(skai) / float(sauc);
+//
+//    if (skai < sauc)
+//    {
+//        whichToUse = sauc;
+//    }
+//    else 
+//    {
+//        whichToUse = skai;
+//    }
+//
+//    for (int x = 0; x <= whichToUse; x++)
+//    {
+//        for (int y = 0; y <= whichToUse; y++)
+//        {
+//            if (float(x) / float(y) == result)
+//            {
+//                cout << x << " " << y << endl;
+//                return 0;
+//            }
+//        }
+//    }
+//}
+
+//int main ()
+//{
+//    char c;
+//    int countRight = 0, countLeft = 0;
+//
+//    cin >> c;
+//
+//    while (c != '.')
+//    {
+//        if (c == '(')
+//        {
+//            countRight++;
+//        }
+//        else if (c == ')' && countRight > countLeft)
+//        {
+//            countLeft++;
+//        }
+//
+//        cin >> c;
+//    }
+//
+//    if (countRight == countLeft && countRight != 0 && countLeft != 0)
+//    {
+//        cout << "Works" << endl;
+//    }
+//    else
+//    {
+//        cout << "Doesn't work" << endl;
+//    }
+//}
+
+//int main()
+//{
+//    double r, tempR;
+//    int n = 5, count = 0;
+//
+//    cin >> r;
+//
+//    tempR = r;
+//
+//    if (int(tempR) != 0)
+//    {
+//        while (int(tempR) != 0)
+//        {
+//            tempR /= 10;
+//        }
+//
+//
+//        cout << tempR << " ";
+//
+//        while (r != tempR)
+//        {
+//            tempR *= 10;
+//            count++;
+//        }
+//    }
+//    else
+//    {
+//        while (int(tempR * 10) <= 0)
+//        {
+//            tempR *= 10;
+//        }
+//
+//        cout << tempR << endl;
+//
+//        while (r != tempR)
+//        {
+//            tempR /= 10;
+//            count--;
+//        }
+//    }
+//
+//    cout << count << endl;
+//}
+
+//int array_sum(int arr[], int sakuma, int beigu) {
+//    int sum = 0;
+//
+//    for (int x = sakuma; x <= beigu; x++) {
+//        sum += arr[x];
+//    }
+//
+//    return sum; 
+//}
+//
+//int main()
+//{
+//    int arr[] = { 1,2,5,7,3,6 };
+//
+//    cout << array_sum(arr, 1, 3) << endl;
+//}
+
+//void array_copy (int arr_dest[], int arr_src[], int num) {
+//    for (int x = 0; x < num; x++) {
+//        arr_dest[x] = arr_src[x];
+//    }
+//};
+//
+//
+//
+//int main()
+//{
+//    int arr1[] = { 1,2,3,4,5,6 };
+//    int arr2[] = { 11,22,33,44,55,66 };
+//
+//    array_copy(arr1, arr2, 4);
+//
+//    for (int i = 0; i < 6; i++) cout << arr1[i] << endl;
+//}
+
+//int main() {
+//    const int arrSize = 5;
+//
+//    int arr[arrSize][arrSize];
+//    int num = 'A';
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize; y++) {
+//            arr[x][y] = num;
+//            num++;
+//        }
+//    }
+//}
+
+//int main() {
+//    const int arrSize = 6;
+//
+//    int arr[arrSize][arrSize + arrSize];
+//    int num = 'A';
+//    int length = 0;
+//
+//    length = arrSize / 2;
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize; y++) {            
+//            if (y == length)
+//            {
+//                num -= length;
+//            }
+//            
+//            arr[x][y] = num;
+//            num++;
+//        }
+//    }
+//}
+
+//int main() {
+//    const int arrSize = 3;
+//
+//    int arr[arrSize][arrSize * 2];
+//    int num = 'A' + rand() % 26;
+//    int length = 0;
+//
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize; y++) {
+//            
+//            arr[x][y] = num;
+//            arr[x][y + arrSize] = num;
+//            num = 'A' + rand() % 26;
+//        }
+//    }
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize * 2; y++) {
+//
+//            cout << char(arr[x][y]);
+//        }
+//        cout << endl;
+//    }
+//}
+
+//int main() {
+//    const int arrSize = 6;
+//
+//    int arr[arrSize][arrSize * 2];
+//    int num = 'a';
+//    int numUpper = 'A';
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize * 2; y++) {
+//            if (x % 2 == 0) {
+//                arr[x][y] = numUpper;
+//                numUpper++;
+//            }
+//            else {
+//                arr[x][y] = num;
+//                num++;
+//            }
+//        }
+//
+//        num = 'a';
+//        numUpper = 'A';
+//    }
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize * 2; y++) {
+//
+//            cout << char(arr[x][y]);
+//        }
+//        cout << endl;
+//    }
+//}
+
+//int main() {
+//    const int arrSize = 8;
+//
+//    int arr[arrSize][arrSize];
+//    int numUpp = 'A';
+//    int numLow = 'a';
+//    int repeat = 0;
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize; y++) {
+//            if (repeat == 0) {
+//                arr[x][y] = numUpp;
+//                numUpp++;
+//                repeat++;
+//            }
+//            else {
+//                arr[x][y] = numLow;
+//
+//                if (numLow == int('z'))
+//                {
+//                    numLow = 'a';
+//                    numUpp = 'A';
+//                }
+//
+//                numLow++;
+//                repeat = 0;
+//            }
+//        }
+//    }
+//
+//    for (int x = 0; x < arrSize; x++) {
+//        for (int y = 0; y < arrSize; y++) {
+//
+//            cout << char(arr[x][y]);
+//        }
+//        cout << endl;
+//    }
+//}
