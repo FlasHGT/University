@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>George T. - </title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-dropdown-menu-wrapper">
+                <a id="nav-dropdown-menu"><i class="fas fa-align-justify" aria-hidden="true"></i></a>
+            </div>
+            
+            <div id="nav-burger">
+                <button class="nav-projects btn" data-hash="projects" onclick="javascript:ChangeTitle('projects');">Projects</button>
+                <button class="nav-about btn" data-hash="about" onclick="javascript:ChangeTitle('about');">About Me</button>
+                <button class="nav-contact btn" data-hash="contact" onclick="javascript:ChangeTitle('contact');">Contact</button>
+            </div>
+            
+            <div id="nav-default">
+                <ul>
+                    <li>{</li>
+                    <li><button class="nav-projects btn" data-hash="projects" onclick="javascript:ChangeTitle('projects');">Projects</button></li>
+                    <li><button class="nav-about btn" data-hash="about" onclick="javascript:ChangeTitle('about');">About Me</button></li>
+                    <li><button class="nav-contact btn" data-hash="contact" onclick="javascript:ChangeTitle('contact');">Contact</button></li>
+                    <li>}</li>
+                </ul>
+            </div>
+        </nav>
+
+        <section id="projects">          
+            <canvas id="canvas"></canvas>
+        </section>
+
+        <section id="about">
+            <div id="about-container">
+                <h1>{ George Toliashvili }</h1>
+                <div id="about-content">
+                    <img src="img/portrait.jpg" alt="">
+                    <div>
+                        <h2>{ Hello, reader }</h2> 
+                        <p>
+                            My name is <i>George</i>. My passion is to explore the universe and figure out how it works. 
+                            While at the same time creating things that I'm passionate about.
+                            <br><br>
+                            I'm a self-taught programmer.
+                            I have explored game, software, web development and also machine learning.
+                            I have the most experience in game development, more precisely the Unity game engine.
+                            I have also participated in now 3 Global Game Jams as a programmer.
+                            </p>
+                            
+                        <p id="top"><b>My TOP 3 programming languages</b></p>
+                        <ol>
+                            <li>C#</li>
+                            <li>JavaScript</li>
+                            <li>C++</li>
+                        </ol>
+                    </div>
+                    
+                </div>
+            </div>             
+        </section>
+                
+        <section id="contact">   
+            <div id="content-wrap">
+                <h1>{ This is for business inquiries only }</h1>
+            
+                <form id="contact-form" action="contactform.php" method="post">
+                    <input type="text" name="name" placeholder="Full name">
+                    <input type="text" name="email" placeholder="Your e-mail">
+                    <input type="text" name="subject" placeholder="Subject">
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <button type="submit" name="submit">SEND</button>
+                </form>         
+            </div> 
+        </section>
+
+        <footer>  
+            <ul>
+                <li class="footer-elements"><a href="https://www.facebook.com/georgs.toliashvili" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li class="footer-elements"><a href="https://www.youtube.com/channel/UCvoARsvD56LBYlhPqTui0Rw/featured?view_as=subscriber" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a></li>
+                <li class="footer-elements"><a href="https://github.com/FlasHGT" target="_blank"><i class="fa fa-github-square" aria-hidden="true"></i></a></li>
+                <li class="footer-elements"><a href="https://twitter.com/FlasHBngG" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+            </ul>
+        </footer> 
+
+        <script src="https://kit.fontawesome.com/0d63444a97.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="canvas.js"></script>
+        <script src="main.js"></script> 
+    </body>
+</html>
