@@ -2,10 +2,7 @@ var nav0 = document.getElementsByClassName("nav-projects");
 var nav1 = document.getElementsByClassName("nav-about");
 var nav2 = document.getElementsByClassName("nav-contact");
 
-let url = window.location.href;
-let sectionName = url.split("#");
-
-ChangeTitle(sectionName[1]);
+ChangeTitle("");
 
 $("#nav-dropdown-menu").on("click", function() {
     $("nav").toggleClass("open");

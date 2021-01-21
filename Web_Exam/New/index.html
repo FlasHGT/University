@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>George T. - </title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap">
+    </head>
+
+    <body>
+        <nav>
+            <div id="nav-default">
+                <ul>
+                    <li><a id="home-a" href="#home" onclick="javascript:ChangeTitle('home');">Home</a></li>
+                    <li><a id="about-a" href="#about" onclick="javascript:ChangeTitle('about');">About Me</a></li>
+                    <li><a id="projects-a" href="#projects" onclick="javascript:ChangeTitle('projects');">Projects</a></li>
+                    <li><a id="contact-a" href="#contact" onclick="javascript:ChangeTitle('contact');">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section id="home">          
+            <div class="bg-overlay">
+                <div id="home-wrapper">
+                    <h1>George Toliashvili</h1>
+                    <h2>Portfolio page</h2>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="bg-overlay">
+                <div id="about-container">
+                    <h1>About me</h1>
+                    <div id="about-content">                     
+                        <div>
+                            <p>
+                                I'm a self-taught programmer.
+                                I have explored <i>game</i>, <i>software</i>, <i>web development</i> and also<i> machine learning</i>.
+                                I have the most experience in game development, more precisely the <a class="about-link" href="https://unity.com" target="_blank">Unity game engine</a>.
+                                I have also participated in now 4 Global Game Jams as a programmer.
+                                <br>
+                                My passion is to explore the universe and figure out how it works. 
+                                While at the same time creating things that I'm passionate about.
+                            </p>
+                                
+                            <p id="top">My <strong>TOP 3</strong> programming languages:</p>
+                            <ol>
+                                <li>C#</li>
+                                <li>C++</li>
+                                <li>JavaScript</li>
+                            </ol>
+
+                            <p id="more">
+                                I'm currently studying Computer Science at University of Latvia. I don't have a lot of work experience
+                                yet, but I worked in MadSword (a game development company) during one of my summer breaks, where sadly
+                                I didn't work as a programmer, but rather as a QA tester, I wasn't required to create automatic tests,
+                                but I decided to make my life easier, so I created browser based tests using C#.
+                                I have a decent amount of personal projects that are all quite different, you can take a look at them on
+                                <a class="about-link" href="https://github.com/FlasHGT" target="_blank">my github page</a>.
+                            </p>
+
+                            <button type="button" id="more-button" onclick="More()"><i id="more-button-icon" class="fas fa-arrow-down"></i></button>
+                        </div>
+                        
+                    </div>
+                </div>   
+            </div>                      
+        </section>
+
+        <section id="projects">          
+            
+        </section>
+                
+        <section id="contact">   
+            <div id="content-wrap">
+                <h1>{ This is for business inquiries only }</h1>
+            
+                <form id="contact-form" action="contactform.php" method="post">
+                    <input type="text" name="name" placeholder="Full name">
+                    <input type="text" name="email" placeholder="Your e-mail">
+                    <input type="text" name="subject" placeholder="Subject">
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <button type="submit" name="submit">SEND</button>
+                </form>         
+            </div> 
+        </section>
+
+        <div id="footer">  
+            <ul>
+                <li class="footer-elements"><a href="https://www.facebook.com/georgs.toliashvili" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li class="footer-elements"><a href="https://github.com/FlasHGT" target="_blank"><i class="fa fa-github-square" aria-hidden="true"></i></a></li>
+            </ul>
+        </div> 
+
+        <script src="https://kit.fontawesome.com/0d63444a97.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="main.js"></script> 
+    </body>
+</html>
