@@ -649,3 +649,143 @@ div.slide-container {
         padding: 10px 15px;
     }
 }
+
+@media only screen and (max-width: 425px) {         
+    #home-wrapper {
+        padding: 35vh 5vh;
+    }
+    
+    #home-wrapper h1 {
+        border-bottom: 3px solid white;
+        font-size: 3.5em;
+    }
+    
+    #home-wrapper h2 {
+        font-size: 2em;
+    }
+    
+    #about-container {
+        width: 100%;
+    }
+
+    #about-content p {
+        font-size: 1em;
+    }
+    
+    #about-content li {
+        font-size: 1em;
+    }
+    
+    .rotate {
+        top: 20%;
+        left: 50%;
+        width: 125px;
+        height: 200px;
+    }
+    
+    #rotate-0 {
+        transform: translate(-50%, -20%);
+        z-index: 2;
+    }
+    
+    #rotate-1 {
+        transform: translate(-50%, -20%) rotate(20deg);
+        z-index: 0;
+    }
+    
+    #rotate-2 {
+        transform: translate(-50%, -20%) rotate(-20deg);
+        z-index: 1;
+    }
+
+    #slider {
+        width: 100%;
+    }
+
+    .main-content-wrap {
+        font-size: 0.8em;
+    }
+
+    #contact-wrap {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 2em;
+    }
+    
+    .section-tech {
+        width: 40%;
+    }
+    
+    .section-tech a {
+        width: 100px;
+    }
+
+    .slide-container h2 {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+
+    .picture-wrap {
+        height: 150px;
+    }
+    
+    .picture-wrap img {
+        width: 200px;
+        height: 150px;
+    } 
+}
+
+@media only screen and (max-width: 375px) {    
+    #home-wrapper h1 {
+        border-bottom: 2px solid white;
+        font-size: 2.5em;
+    }
+    
+    #home-wrapper h2 {
+        font-size: 1.5em;
+    }
+    
+    #about-container {
+        width: 100%;
+    }
+
+    #about-content p {
+        font-size: 0.9em;
+    }
+    
+    #about-content li {
+        font-size: 0.9em;
+    }
+
+    .main-content-wrap {
+        font-size: 0.7em;
+    }
+
+    .section-tech a {
+        width: 100px;
+    }
+
+    #contact-wrap {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 350px) {    
+    #home-wrapper h1 {
+        font-size: 2.2em;
+    }
+    
+    #nav-default a {
+        font-size: 0.8em;
+    }
+
+    #about-content p {
+        font-size: 0.8em;
+    }
+    
+    #about-content li {
+        font-size: 0.8em;
+    }
+}
