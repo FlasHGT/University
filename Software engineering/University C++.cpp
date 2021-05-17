@@ -1,11 +1,11 @@
-﻿#include <iostream>
-#include <vector>
-#include <random>
-#include <string>
-#include <time.h>
-#include <iomanip>
-
-using namespace std;
+﻿//#include <iostream>
+//#include <vector>
+//#include <random>
+//#include <string>
+//#include <time.h>
+//#include <iomanip>
+//
+//using namespace std;
 
 //bool returnValueSum(int mainValue, int pairValue, int pairValueSum)
 //{
@@ -1860,3 +1860,314 @@ using namespace std;
 //        cout << endl;
 //    }
 //}
+
+//#include <iostream>
+//#include <string>
+//
+//using namespace std;
+//
+//class darbinieks {
+//    int aplNr;
+//public:
+//    darbinieks (int a) 
+//    {
+//        aplNr = a;
+//    }
+//    
+//    ~darbinieks(){}
+//    
+//    void print() 
+//    {
+//        cout << aplNr << endl;
+//    }
+//};
+//
+//class direktors : public darbinieks {
+//    string* apbal;
+//    int size;
+//
+//public:
+//    direktors(int x, string a[], int length) : darbinieks(x)
+//    {
+//        apbal = new string[length];
+//        size = length;
+//
+//        for (int x = 0; x < size; x++)
+//        {
+//            apbal[x] = a[x];
+//        }
+//    }
+//    
+//    ~direktors() { delete []apbal;}
+//    
+//    void print()
+//    {
+//        darbinieks::print();
+//        
+//        for (int x = 0; x < size; x++)
+//        {
+//            cout << apbal[x] << endl;
+//        }
+//    }
+//};
+//
+//int main () 
+//{
+//    darbinieks a(123);
+//    a.print();
+//
+//    string apbal[3] = {"sdas", "sada"};
+//    direktors b(321, apbal, 3);
+//    b.print();
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//template <typename T>
+//class Node
+//{
+//public:
+//    T info;
+//    Node<T>* next;
+//
+//    Node(T a)
+//    {
+//        info = a;
+//        next = NULL;
+//    };
+//};
+//
+//template <typename T>
+//class List 
+//{
+//    Node<T> *first, *last;
+//public:
+//    Node<T> *current;
+//
+//    List() 
+//    {
+//        first = last = current = NULL;
+//    };
+//
+//    void addElement(T a)
+//    {
+//        current = new Node<T>(a);
+//
+//        if (first == NULL)
+//        {
+//            first = last = current;
+//        }
+//        else 
+//        {
+//            last->next = current;
+//            last = current;
+//        }
+//    }
+//    
+//    void deleteLastNotUnique() 
+//    {
+//        current = first;
+//        Node<T> *n;
+//
+//        while (current != NULL) 
+//        {
+//            if (current->info == last->info)
+//            {
+//                while (current->next != last)
+//                {
+//                    current = current->next;
+//                }
+//     
+//                n = last;
+//                current->next = NULL;
+//                last = current;
+//                delete n;
+//
+//                break;
+//            }
+//
+//            current = current->next;
+//        }
+//    }
+//
+//    void print() 
+//    {
+//        current = first;
+//
+//        while (current != NULL)
+//        {
+//            cout << current->info << endl;
+//            current = current->next;
+//        }
+//    }
+//};
+//
+//class cipari
+//{
+//    int a;
+//    int b;
+//public:
+//    cipari(int x, int y) { a = x; b = y; };
+//
+//    void add(int x, int y)
+//    {
+//        a += x;
+//        b += y;
+//    }
+//
+//    void add()
+//    {
+//        a++;
+//        b++;
+//    }
+//
+//    void print() { cout << a << " " << b << endl; }
+//};
+//
+//int main() 
+//{
+//    cipari j(10, 15);
+//    j.print();
+//    j.add(2,3);
+//    j.print();
+//    j.add();
+//    j.print();
+//
+//    List<string> a;
+//    a.addElement("a");
+//    a.addElement("b");
+//    a.addElement("8");
+//    a.addElement("d");
+//    a.addElement("a");
+//    a.addElement("a");
+//
+//    a.print();
+//    cout << endl;
+//
+//    a.deleteLastNotUnique();
+//    a.print();
+//}
+
+/*#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Gramata {
+        int lappuses;
+        string nosaukums;
+
+    public:
+        Gramata(string n, int l)
+        {
+            lappuses = l;
+            nosaukums = n;
+        }
+        
+        ~Gramata(){}
+        
+        void print() 
+        {
+            cout << "Lappuses: " << lappuses << " Nosaukums: " << nosaukums << endl;
+        }
+    };
+    
+class MacibuGramata : public Gramata {
+    string* prieksmeti;
+    int size;
+    
+public:
+    MacibuGramata(string n, int l, string a[], int aLength) : Gramata(n, l)
+    {
+        prieksmeti = new string[aLength];
+        size = aLength;
+    
+        for (int x = 0; x < size; x++)
+        {
+            prieksmeti[x] = a[x];
+        }
+    }
+        
+    ~MacibuGramata() { cout << "Destruct" << endl; delete []prieksmeti;}
+        
+    void print()
+    {
+        Gramata::print();
+            
+        cout << "Prieksmeti: " << endl;
+        for (int x = 0; x < size; x++)
+        {
+            cout << prieksmeti[x] << endl;
+        }
+    }
+};
+
+int main() 
+{
+    string a[3] = {"Geografija", "Biologija", "Kimija"};
+
+    Gramata *viens;
+    viens = new Gramata("Informatika", 10);
+    viens->print();
+
+    delete viens;
+
+    Gramata g("Matematika", 213);
+    g.print();
+
+    MacibuGramata *divi;
+    divi = new MacibuGramata("Fizika", 12, a, 3);
+    divi->print();
+
+    delete divi;
+
+    MacibuGramata m("Dabaszinatne", 102, a, 3);    
+    m.print();
+}*/
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <fstream>
+//
+//using namespace std;
+//
+//struct dati {
+//    string nos;
+//    string izdevejs;
+//    int izGads;
+//    int lapp;
+//    int ISBN;
+//};
+//
+//int main()
+//{
+//    ifstream fin("test.txt");
+//    ofstream fout("out.bin", ios::out | ios::binary);
+//    vector<dati> d;
+//    dati j;
+//
+//    while (!fin.eof()) 
+//    {
+//        fin >> j.nos;
+//        fin >> j.izdevejs;
+//        fin >> j.izGads;
+//        fin >> j.lapp;
+//        fin >> j.ISBN;
+//
+//        d.push_back(j);
+//    }
+//
+//    fin.close();
+//
+//    for (int x = 0; x < d.size(); x++)
+//    {
+//        fout.seekp((d[x].ISBN % 1100) * sizeof(dati), ios::beg);
+//        fout.write((char*)&d[x], sizeof(dati));
+//    }
+//
+//    fout.close();
+//}
+

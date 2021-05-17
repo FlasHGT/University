@@ -1499,13 +1499,13 @@
 //    }
 //}
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <list>
-
-using namespace std;
+//#include <iostream>
+//#include <fstream>
+//#include <string>
+//#include <vector>
+//#include <list>
+//
+//using namespace std;
 
 ////// TEXT FILES
 
@@ -1663,126 +1663,758 @@ using namespace std;
 
 ////// LINKED LIST
 
-struct element {
-    int val;
-    element* next;
+//struct element {
+//    int val;
+//    element* next;
+//};
+//
+//void printList(element* firstEl)
+//{
+//    while (firstEl != NULL)
+//    {
+//        cout << firstEl->val << " ";
+//        firstEl = firstEl->next;
+//    }
+//    cout << endl;
+//}
+//
+//void deleteFirstEvenBeforeOdd(element*& first)
+//{
+//    element* current = first;
+//    element* prevEl = NULL;
+//
+//    while (current != NULL)
+//    {
+//        if (prevEl != NULL)
+//        {
+//            if (prevEl == first)
+//            {
+//                if (prevEl->val % 2 == 0 && current->val % 2 != 0)
+//                {
+//                    first = current;
+//                    return;
+//                }
+//            }   
+//
+//            if (current->val % 2 == 0 && current->next->val % 2 != 0)
+//            {
+//                prevEl->next = current->next;
+//                return;
+//            }
+//        }
+//
+//        prevEl = current;
+//        current = current->next;
+//    }
+//}
+//
+//void incDecOdd(element*& first)
+//{
+//    element* current = first;
+//
+//    while (current != NULL)
+//    {
+//        int val = current->val;
+//
+//        if (val % 2 != 0)
+//        {
+//            if (val > 0)
+//            {
+//                val--;
+//            }
+//            else
+//            {
+//                val++;
+//            }
+//
+//            current->val = val;
+//        }
+//
+//        current = current->next;
+//    }
+//}
+//
+//int main() 
+//{
+//    vector<int> arr = { -2,3,-7,-4,5 };
+//    element* first = NULL;
+//    element* last = NULL;
+//
+//    for (int x = 0; x < arr.size(); x++)
+//    {
+//        element* newEl = new element;
+//        newEl->val = arr[x];
+//        newEl->next = NULL;
+//
+//        if (first == NULL)
+//        {
+//            first = last = newEl;
+//        }
+//        else
+//        {
+//            last->next = newEl;
+//            last = last->next;
+//        }
+//    }
+//
+//    incDecOdd(first);
+//
+//    printList(first);
+//
+//    arr = { 2,3,8,4,5 };
+//    first = NULL;
+//    last = NULL;
+//
+//    for (int x = 0; x < arr.size(); x++)
+//    {
+//        element* newEl = new element;
+//        newEl->val = arr[x];
+//        newEl->next = NULL;
+//
+//        if (first == NULL)
+//        {
+//            first = last = newEl;
+//        }
+//        else
+//        {
+//            last->next = newEl;
+//            last = last->next;
+//        }
+//    }
+//
+//    deleteFirstEvenBeforeOdd(first);
+//
+//    printList(first);
+//}
+
+// Georgs Toliašvili, gt20010
+// HH. Uzrakstīt programmu, kas ļauj izveidot un labot bināru failu, kura glabājas datumi, 
+// un kura ieraksta struktūra ir sekojoša : gads(int), mēnesis(int), diena(int), ieraksta statuss(0 vai 1).
+// Programmai katrs jauns ieraksts jāieliek faila beigās.Ja failā tāds datums jau eksistē, tas nav 
+// jāpieliek.Jāparedz iespēja(1) izmest faila komponenti(loģiski atzīmējot kā izmestu),
+// (2) izdrukāt failā esošos datumus uz ekrāna, (3) izmest loģiski izmestas komponentes fiziski.
+// 31.03.2021
+
+//#include <iostream>
+//#include <fstream>
+//#include <time.h>
+//#include <string>
+//#include <vector>
+//#include <stdio.h>
+//
+//using namespace std;
+//
+//struct BinStruct
+//{
+//    int year;
+//    int month;
+//    int day;
+//    bool status;
+//
+//public:
+//    BinStruct(int year, int month, int day, bool status)
+//    {
+//        this->year = year;
+//        this->month = month;
+//        this->day = day;
+//        this->status = status;
+//    }
+//};
+//
+//bool operator==(const BinStruct& x, const BinStruct& y)
+//{
+//    return x.year == y.year && x.month == y.month && x.day == y.day;
+//}
+//
+//void fillBinaryFile(ofstream& f, vector<BinStruct>& structs, int arrSize = NULL)
+//{
+//    if (arrSize != NULL)
+//    {
+//        srand(time(NULL)); // time(NULL) returns time (seconds since Jan 1, 1970),
+//        // which means that every time you launch the program it will have a 
+//        // different seed that will be passed in the pseudo-random number generator
+//
+//        int year;
+//        int month;
+//        int day;
+//        bool status = 1;
+//
+//        for (int x = 0; x < arrSize; x++)
+//        {
+//            bool leapYear = false;
+//            year = rand() % 21 + 2001;
+//
+//            if (year % 4 == 0) {
+//                if (year % 100 == 0) {
+//                    if (year % 400 == 0)
+//                    {
+//                        leapYear = true;
+//                    }
+//                }
+//                else
+//                {
+//                    leapYear = true;
+//                }
+//            }
+//
+//            month = rand() % 12 + 1;
+//
+//            if (month == 2)
+//            {
+//                if (leapYear)
+//                {
+//                    day = rand() % 29 + 1;
+//                }
+//                else
+//                {
+//                    day = rand() % 28 + 1;
+//                }
+//            }
+//            else if (month == 4 || month == 6 || month == 9 || month == 11)
+//            {
+//                day = rand() % 30 + 1;
+//            }
+//            else
+//            {
+//                day = rand() % 31 + 1;
+//            }
+//
+//            BinStruct currStruct(year, month, day, status);
+//            bool elFound = false;
+//
+//            for (int x = 0; x < structs.size(); x++)
+//            {
+//                if (currStruct == structs[x])
+//                {
+//                    elFound = true;
+//                    break;
+//                }
+//            }
+//
+//            if (!elFound)
+//            {
+//                f.write((char*)&currStruct, sizeof(BinStruct));
+//                structs.push_back(currStruct);
+//            }
+//        }
+//    }
+//    else
+//    {
+//        // If arrSize doesn't get provided then we are not trying to create new data,
+//        // we are populating the file with the existing data from the dynamic array
+//        for (int x = 0; x < structs.size(); x++)
+//        {
+//            f.write((char*)&structs[x], sizeof(BinStruct));
+//        }
+//    }
+//
+//
+//    f.close();
+//}
+//
+//void printList(vector<BinStruct> structs)
+//{
+//    cout << "Index  Status  Date" << endl;
+//    for (int x = 0; x < structs.size(); x++)
+//    {
+//        cout << x << "      " << structs[x].status << "       " << structs[x].year
+//            << "." << structs[x].month << "." << structs[x].day << endl;
+//    }
+//    cout << endl;
+//}
+//
+//void removeMarkedElements(vector<BinStruct>& structs)
+//{
+//    for (int x = 0; x < structs.size(); x++)
+//    {
+//        if (!structs[x].status)
+//        {
+//            structs.erase(structs.begin() + x);
+//            x--;
+//        }
+//    }
+//}
+//
+//void validateInput(int& command, int min, int max)
+//{
+//    cin >> command;
+//
+//    while (true)
+//    {
+//        if (cin.fail())
+//        {
+//            cin.clear();
+//            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+//            cout << "That was not a number, please enter a number!" << endl;
+//        }
+//        else if (!(command <= max && command >= min))
+//        {
+//            cout << "Please enter a number between " << min << " and " << max  << "!" << endl;
+//        }
+//        else 
+//        {
+//            break;
+//        }
+//
+//        cin >> command;
+//    }
+//}
+//
+//int main()
+//{
+//    int command = 0, numberOfDatesToCreate = 0;
+//    string fileLoc = "dates.bin";
+//
+//    ofstream fout(fileLoc, ios::binary);
+//
+//    vector<BinStruct> structs;
+//
+//    cout << "Enter the number of dates to generate(1-100): ";
+//    validateInput(numberOfDatesToCreate, 1, 100);
+//    cout << endl;
+//
+//    fillBinaryFile(fout, structs, numberOfDatesToCreate);
+//
+//    cout << "0 - Exit\n" << "1 - Mark an Element\n" << "2 - Display Elements\n" << "3 - Remove Marked Elements" << endl;
+//    validateInput(command, 0, 3); // 0 - to exit the app; 1 - Mark element to remove; 2 - Display elements; 3 - Remove marked elements
+//
+//    while (command != 0)
+//    {
+//        cout << endl;
+//        switch (command)
+//        {
+//            case 1:
+//            {
+//                int elementToRemove, bytesToOffset;
+//                bool status = false;
+//
+//                cout << "Enter element index: ";
+//                validateInput(elementToRemove, 0, structs.size() - 1);
+//
+//                ofstream fout(fileLoc, ios::binary | ios::in);
+//                // ios::in gets provided, so a new file doesn't get created
+//
+//                bytesToOffset = ((sizeof(int) * 3 + sizeof(bool) + 3) * elementToRemove) + 12;
+//                // sizeof(int) = 4B
+//                // 4B * 3, represents year/month/day
+//                // sizeof(bool) = 1B, + 3 represents the additional bytes that get added
+//                // to the end of a struct
+//
+//                fout.seekp(bytesToOffset, ios::beg); // navigating through a binary file
+//                fout.write((char*)&status, sizeof(bool)); // the next byte/s get overwritten
+//
+//                fout.close();
+//
+//                structs[elementToRemove].status = status;
+//                break;
+//            }
+//            case 2:
+//            {
+//                printList(structs);
+//                break;
+//            }
+//            case 3:
+//            {
+//                removeMarkedElements(structs);
+//
+//                remove(fileLoc.c_str()); // Deletes file
+//
+//                ofstream fout(fileLoc, ios::binary); // Creates a new file
+//
+//                fillBinaryFile(fout, structs);
+//                break;
+//            }
+//        }
+//        cout << endl;
+//
+//        cout << "0 - Exit\n" << "1 - Mark an Element\n" << "2 - Display Elements\n" << "3 - Remove Marked Elements" << endl;
+//        validateInput(command, 0, 3); // 0 - to exit the app; 1 - Mark element to remove; 2 - Display elements; 3 - Remove marked elements
+//    }
+//}
+
+//#include <iostream>
+//#include <fstream>
+//using namespace std;
+//
+//int main()
+//{
+//    fstream fin("lab20a.txt", ios::in | ios::binary);
+//    int i;
+//    int cLen;
+//    char c[100]; // Nolasa vai nu 100 simbolus, vai nu lidz simbolam \0
+//    //char c[100] = {0}; // Lai beigas nebutu divaini simboli
+//
+//    fin.read((char*)&i, 1);
+//    fin.read((char*)&cLen, 1);
+//    fin.read((char*)&c, sizeof(c));
+//
+//    cout << i << endl;
+//    cout << cLen << endl;
+//    cout << c << endl;
+//
+//    fin.close();
+//
+//    /*fstream fout("lab20a.txt", ios::out);
+//
+//    const int arrSize = 100;
+//    int i;
+//    char c[arrSize];
+//
+//    cin >> i >> c;
+//
+//    fout.write((char*)&i, 1);
+//    fout.write((char*)&arrSize, 1);
+//    fout.write((char*)&c, sizeof(c));
+//    fout.close();*/
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//class charsimple {
+//    char x;
+//public:
+//    charsimple(char a) { x = a; };
+//
+//    virtual void print()
+//    {
+//        cout << x << endl;
+//    };
+//
+//    virtual void change(char a) { x = a; };
+//};
+//
+//class charchar : charsimple
+//{
+//    char y;
+//
+//public:
+//    charchar(char a, char b) : charsimple(a)
+//    { 
+//       y = b;
+//    }
+//
+//    void print()
+//    {
+//        charsimple::print();
+//        cout << y << endl;
+//    };
+//
+//    void change(char a, char b) { charsimple::change(a); y = b; };
+//};
+//
+//class charint : public charsimple
+//{
+//    int y;
+//
+//public:
+//    charint(char a, int b) : charsimple(a)
+//    {
+//        y = b;
+//    }
+//
+//    void print()
+//    {
+//        charsimple::print();
+//        cout << y << endl;
+//    };
+//
+//    void change(char a) { charsimple::change(a); y++; };
+//};
+//
+//int main()
+//{
+//    charchar cc('A', 'B');
+//    
+//    cc.print();
+//    cc.change('X', 'Y');
+//    cc.print();
+//
+//    cout << endl;
+//
+//    charsimple* ci = new charint('G', 99);
+//
+//    ci->print();
+//    ci->change('K');
+//    ci->print();
+//
+//    delete ci;
+//
+//    return 0;
+//}
+
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+
+using namespace std;
+
+// If {} doesn't get added to variables then the IDE complains about them not having default initializers
+struct inputStruct {
+    int time{};
+    char action{};
+    char PK[12]{}; // + 1 size for \0
+    char CD[50]{};
+
+    inputStruct()
+    {
+        PK[11] = '\0';
+        // Marks the end of the data
+        // We don't do this to CD, because those characters are last in the line
+    };
 };
 
-void printList(element* firstEl)
+struct outputStruct {
+    int time{};
+    char firstPK[12]{};
+    char lastPK[12]{};
+};
+
+template <typename T>
+class node {
+public:
+    T info;
+    node<T>* next{};
+
+    node() {};
+};
+
+void copyCharArray(char dest[], char source[])
 {
-    while (firstEl != NULL)
+    for (int i = 0; source[i] != '\0'; i++)
     {
-        cout << firstEl->val << " ";
-        firstEl = firstEl->next;
+        dest[i] = source[i];
     }
-    cout << endl;
 }
 
-void deleteFirstEvenBeforeOdd(element*& first)
+bool compareCharArray(char a[], char b[])
 {
-    element* current = first;
-    element* prevEl = NULL;
-
-    while (current != NULL)
+    for (int i = 0; a[i] != '\0'; i++)
     {
-        if (prevEl != NULL)
+        if (a[i] != b[i])
         {
-            if (prevEl == first)
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void saveInput(ifstream& fin, node<inputStruct>*& first, node<inputStruct>*& current)
+{
+    inputStruct newStruct;
+    node<inputStruct>* n = NULL;
+
+    while (!fin.eof())
+    {
+        fin >> newStruct.time;
+
+        fin.clear(); // Ignores any errors
+        fin.ignore(1); // Ignoring next character in file
+        fin >> newStruct.action;
+
+        fin.clear();
+        fin.ignore(1);
+        fin >> newStruct.PK;
+
+        fin.clear();
+        fin.ignore(1);
+        fin >> newStruct.CD;
+
+        n = new node<inputStruct>;
+        n->info = newStruct;
+        n->next = NULL;
+
+        if (first == NULL)
+        {
+            first = current = n;
+        }
+        else
+        {
+            current->next = n;
+            current = current->next;
+        }
+    }
+}
+
+void printToFile(ofstream& fout, node<outputStruct>*& first)
+{
+    node<outputStruct>* n;
+
+    if (first == NULL)
+        // The file will be empty, if there is nothing to output
+    {
+        fout << 0;
+    }
+    else
+    {
+        // This code works on the server, but not on my computer.
+        if (first->next == NULL)
+        {
+            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+        }
+        else 
+        {
+            while (first->next != NULL)
             {
-                if (prevEl->val % 2 == 0 && current->val % 2 != 0)
+                fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+
+                n = first;
+                first = first->next;
+                delete n;
+            }
+        }
+
+        delete first;
+
+        // This should work, but it doesn't. Works on my computer, but not on the server.
+        /*while (first != NULL)
+        {
+            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+
+            n = first;
+            first = first->next;
+            delete n;
+        }*/
+    }
+}
+
+void addToOutputList(node<outputStruct>*& first, node<outputStruct>* n)
+{
+    node<outputStruct>* current, *prev = NULL;
+
+    if (first == NULL)
+    {
+        first = n;
+    }
+    else
+    {
+        current = first;
+
+        while (true)
+        {
+            if (current == NULL)
+            {
+                prev->next = n;
+                break;
+            }
+
+            if (current->info.time > n->info.time)
+            {
+                if (current == first)
                 {
-                    first = current;
-                    return;
+                    n->next = first;
+                    first = n;
+                    break;
                 }
-            }   
 
-            if (current->val % 2 == 0 && current->next->val % 2 != 0)
-            {
-                prevEl->next = current->next;
-                return;
+                prev->next = n;
+                n->next = current;
+                break;
             }
-        }
 
-        prevEl = current;
-        current = current->next;
+            prev = current;
+            current = current->next;
+        }
     }
 }
 
-void incDecOdd(element*& first)
+node<outputStruct>* createNewOutputNode(node<inputStruct>*& first, node<inputStruct>*& current)
 {
-    element* current = first;
+    outputStruct s;
+    node<outputStruct>* n = new node<outputStruct>;
 
-    while (current != NULL)
+    if (first->info.action == 'B')
     {
-        int val = current->val;
-
-        if (val % 2 != 0)
-        {
-            if (val > 0)
-            {
-                val--;
-            }
-            else
-            {
-                val++;
-            }
-
-            current->val = val;
-        }
-
-        current = current->next;
+        copyCharArray(s.firstPK, current->info.PK);
+        copyCharArray(s.lastPK, first->info.PK);
     }
+    else
+    {
+        copyCharArray(s.firstPK, first->info.PK);
+        copyCharArray(s.lastPK, current->info.PK);
+    }
+
+    s.time = current->info.time;
+
+    n->info = s;
+    n->next = NULL;
+
+    return n;
 }
 
-int main() 
+void createOutput(ofstream& fout, node<inputStruct>*& first, node<inputStruct>*& current)
 {
-    vector<int> arr = { -2,3,-7,-4,5 };
-    element* first = NULL;
-    element* last = NULL;
+    bool pairFound;
 
-    for (int x = 0; x < arr.size(); x++)
+    node<inputStruct>* prev, *n;
+
+    node<outputStruct>* oFirst = NULL;
+
+    while (first != NULL)
     {
-        element* newEl = new element;
-        newEl->val = arr[x];
-        newEl->next = NULL;
+        pairFound = false;
 
-        if (first == NULL)
+        prev = first;
+        current = first->next;
+
+        while (current != NULL && !pairFound)
         {
-            first = last = newEl;
+            if (first->info.action != current->info.action && compareCharArray(first->info.CD, current->info.CD))
+            {
+                addToOutputList(oFirst, createNewOutputNode(first, current));
+
+                n = first;
+
+                if (first->next == current)
+                {
+                    first = current->next;
+                }
+                else
+                {
+                    first = first->next;
+                }
+
+                delete n;
+
+                n = current;
+                prev->next = current->next;
+                delete n;
+
+                pairFound = true;
+                break;
+            }
+
+            prev = current;
+            current = current->next;
         }
-        else
+
+        if (!pairFound && current == NULL)
+            // If there is no pair for the first element, it gets deleted
         {
-            last->next = newEl;
-            last = last->next;
+            n = first;
+            first = first->next;
+            delete n;
         }
     }
 
-    incDecOdd(first);
+    printToFile(fout, oFirst);
+}
 
-    printList(first);
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    arr = { 2,3,8,4,5 };
-    first = NULL;
-    last = NULL;
+    ifstream fin("exchange.in");
+    ofstream fout("exchange.out");
 
-    for (int x = 0; x < arr.size(); x++)
-    {
-        element* newEl = new element;
-        newEl->val = arr[x];
-        newEl->next = NULL;
+    node<inputStruct>* first = NULL, * current = NULL;
 
-        if (first == NULL)
-        {
-            first = last = newEl;
-        }
-        else
-        {
-            last->next = newEl;
-            last = last->next;
-        }
-    }
+    saveInput(fin, first, current);
 
-    deleteFirstEvenBeforeOdd(first);
+    createOutput(fout, first, current);
 
-    printList(first);
+    fin.close();
+    fout.close();
 }
