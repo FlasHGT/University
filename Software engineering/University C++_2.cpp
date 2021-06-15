@@ -2144,261 +2144,964 @@
 //    return 0;
 //}
 
+//#include <iostream>
+//#include <fstream>
+//#include <stdio.h>
+//
+//using namespace std;
+//
+//// If {} doesn't get added to variables then the IDE complains about them not having default initializers
+//struct inputStruct {
+//    int time{};
+//    char action{};
+//    char PK[12]{}; // + 1 size for \0
+//    char CD[50]{};
+//
+//    inputStruct()
+//    {
+//        PK[11] = '\0';
+//        // Marks the end of the data
+//        // We don't do this to CD, because those characters are last in the line
+//    };
+//};
+//
+//struct outputStruct {
+//    int time{};
+//    char firstPK[12]{};
+//    char lastPK[12]{};
+//};
+//
+//template <typename T>
+//class node {
+//public:
+//    T info;
+//    node<T>* next{};
+//
+//    node() {};
+//};
+//
+//void copyCharArray(char dest[], char source[])
+//{
+//    for (int i = 0; source[i] != '\0'; i++)
+//    {
+//        dest[i] = source[i];
+//    }
+//}
+//
+//bool compareCharArray(char a[], char b[])
+//{
+//    for (int i = 0; a[i] != '\0'; i++)
+//    {
+//        if (a[i] != b[i])
+//        {
+//            return 0;
+//        }
+//    }
+//    return 1;
+//}
+//
+//void saveInput(ifstream& fin, node<inputStruct>*& first, node<inputStruct>*& current)
+//{
+//    inputStruct newStruct;
+//    node<inputStruct>* n = NULL;
+//
+//    while (!fin.eof())
+//    {
+//        fin >> newStruct.time;
+//
+//        fin.clear(); // Ignores any errors
+//        fin.ignore(1); // Ignoring next character in file
+//        fin >> newStruct.action;
+//
+//        fin.clear();
+//        fin.ignore(1);
+//        fin >> newStruct.PK;
+//
+//        fin.clear();
+//        fin.ignore(1);
+//        fin >> newStruct.CD;
+//
+//        n = new node<inputStruct>;
+//        n->info = newStruct;
+//        n->next = NULL;
+//
+//        if (first == NULL)
+//        {
+//            first = current = n;
+//        }
+//        else
+//        {
+//            current->next = n;
+//            current = current->next;
+//        }
+//    }
+//}
+//
+//void printToFile(ofstream& fout, node<outputStruct>*& first)
+//{
+//    node<outputStruct>* n;
+//
+//    if (first == NULL)
+//        // The file will be empty, if there is nothing to output
+//    {
+//        fout << 0;
+//    }
+//    else
+//    {
+//        // This code works on the server, but not on my computer.
+//        if (first->next == NULL)
+//        {
+//            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+//        }
+//        else 
+//        {
+//            while (first->next != NULL)
+//            {
+//                fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+//
+//                n = first;
+//                first = first->next;
+//                delete n;
+//            }
+//        }
+//
+//        delete first;
+//
+//        // This should work, but it doesn't. Works on my computer, but not on the server.
+//        /*while (first != NULL)
+//        {
+//            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+//
+//            n = first;
+//            first = first->next;
+//            delete n;
+//        }*/
+//    }
+//}
+//
+//void addToOutputList(node<outputStruct>*& first, node<outputStruct>* n)
+//{
+//    node<outputStruct>* current, *prev = NULL;
+//
+//    if (first == NULL)
+//    {
+//        first = n;
+//    }
+//    else
+//    {
+//        current = first;
+//
+//        while (true)
+//        {
+//            if (current == NULL)
+//            {
+//                prev->next = n;
+//                break;
+//            }
+//
+//            if (current->info.time > n->info.time)
+//            {
+//                if (current == first)
+//                {
+//                    n->next = first;
+//                    first = n;
+//                    break;
+//                }
+//
+//                prev->next = n;
+//                n->next = current;
+//                break;
+//            }
+//
+//            prev = current;
+//            current = current->next;
+//        }
+//    }
+//}
+//
+//node<outputStruct>* createNewOutputNode(node<inputStruct>*& first, node<inputStruct>*& current)
+//{
+//    outputStruct s;
+//    node<outputStruct>* n = new node<outputStruct>;
+//
+//    if (first->info.action == 'B')
+//    {
+//        copyCharArray(s.firstPK, current->info.PK);
+//        copyCharArray(s.lastPK, first->info.PK);
+//    }
+//    else
+//    {
+//        copyCharArray(s.firstPK, first->info.PK);
+//        copyCharArray(s.lastPK, current->info.PK);
+//    }
+//
+//    s.time = current->info.time;
+//
+//    n->info = s;
+//    n->next = NULL;
+//
+//    return n;
+//}
+//
+//void createOutput(ofstream& fout, node<inputStruct>*& first, node<inputStruct>*& current)
+//{
+//    bool pairFound;
+//
+//    node<inputStruct>* prev, *n;
+//
+//    node<outputStruct>* oFirst = NULL;
+//
+//    while (first != NULL)
+//    {
+//        pairFound = false;
+//
+//        prev = first;
+//        current = first->next;
+//
+//        while (current != NULL && !pairFound)
+//        {
+//            if (first->info.action != current->info.action && compareCharArray(first->info.CD, current->info.CD))
+//            {
+//                addToOutputList(oFirst, createNewOutputNode(first, current));
+//
+//                n = first;
+//
+//                if (first->next == current)
+//                {
+//                    first = current->next;
+//                }
+//                else
+//                {
+//                    first = first->next;
+//                }
+//
+//                delete n;
+//
+//                n = current;
+//                prev->next = current->next;
+//                delete n;
+//
+//                pairFound = true;
+//                break;
+//            }
+//
+//            prev = current;
+//            current = current->next;
+//        }
+//
+//        if (!pairFound && current == NULL)
+//            // If there is no pair for the first element, it gets deleted
+//        {
+//            n = first;
+//            first = first->next;
+//            delete n;
+//        }
+//    }
+//
+//    printToFile(fout, oFirst);
+//}
+//
+//int main()
+//{
+//    ios::sync_with_stdio(false);
+//    cin.tie(NULL);
+//
+//    ifstream fin("exchange.in");
+//    ofstream fout("exchange.out");
+//
+//    node<inputStruct>* first = NULL, * current = NULL;
+//
+//    saveInput(fin, first, current);
+//
+//    createOutput(fout, first, current);
+//
+//    fin.close();
+//    fout.close();
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//struct Node 
+//{
+//    int info;
+//    Node* next;
+//};
+//
+//void PrintReverse(Node* listHead, int from, int to)
+//{
+//    if (listHead == NULL) 
+//    {
+//        cout << "no" << endl;
+//        return;
+//    }
+//
+//    Node* n = NULL;
+//
+//    int arrSize = to - from + 1;
+//    int *arr = new int[arrSize];
+//
+//    int arrIndex = 0;
+//    int listIndex = 0;
+//
+//    while (listHead != NULL) 
+//    {
+//        if (listIndex >= from && listIndex <= to)
+//        {
+//            arr[arrIndex] = listHead->info;
+//            arrIndex++;
+//        }
+//
+//        listIndex++;
+//
+//        n = listHead;
+//        listHead = listHead->next;
+//        delete n;
+//    }
+//
+//    if (arrIndex != 0)
+//    {
+//        for (int x = arrSize - 1; x >= 0; x--)
+//        {
+//            cout << arr[x] << endl;
+//        }
+//    }
+//    else
+//    {
+//        cout << "no" << endl;
+//    }
+//
+//    delete[] arr;
+//}
+//
+//int main() 
+//{
+//    Node* listHead = NULL, *curr, *last = NULL;
+//
+//    const int arrSize = 10;
+//    int info[arrSize] = { 4, 9, 3, 2, 8, 7, 5, 6, 3, 1 };
+//
+//    for (int x = 0; x < arrSize; x++)
+//    {
+//        curr = new Node;
+//
+//        curr->info = info[x];
+//        curr->next = NULL;
+//
+//        if (listHead == NULL)
+//        {
+//            listHead = last = curr;
+//        }
+//        else 
+//        {
+//            last->next = curr;
+//            last = curr;
+//        }
+//    }
+//
+//    PrintReverse(listHead, 11, 14);
+//}
+
+//#include <iostream>
+//#include <list>
+//#include <vector>
+//
+//using namespace std;
+//
+//void deleteBelowAverage(list<int>& l) 
+//{
+//    float sum = 0;
+//
+//    for (auto& a : l)
+//    {
+//        sum += a;
+//    }
+//
+//    float average = sum / l.size();
+//    cout << average << endl;
+//
+//    vector<int> v;
+//
+//    list<int>::iterator i = l.begin();
+//
+//    while (i != l.end())
+//    {
+//        if (*i >= average)
+//        {
+//            i++;
+//            continue;
+//        }
+//
+//        if (*i % 2 != 0)
+//        {
+//            v.push_back(*i);
+//        }
+//
+//        i = l.erase(i);
+//    }
+//
+//    int currVal, maxVal = 0;
+//    int maxAmount = 0, currAmount;
+//
+//    for (int x = 0; x < v.size(); x++)
+//    {
+//        currVal = v[x];
+//        currAmount = 1;
+//        
+//        for (int y = 0; y < v.size(); y++)
+//        {
+//            if (currVal == v[y] && x != y)
+//            {
+//                v.erase(v.begin() + y);
+//                y = 0;
+//                currAmount++;
+//            }           
+//        }
+//
+//        if (currAmount > maxAmount) 
+//        {
+//            maxVal = currVal;
+//            maxAmount = currAmount;
+//        }
+//
+//        v.erase(v.begin() + x);
+//        x = 0;
+//    }
+//
+//    cout << maxVal << " " << maxAmount << endl;
+//}
+//
+//int main() 
+//{
+//    list<int> l = { 2,4,6,8 };
+//    
+//    deleteBelowAverage(l);
+//
+//    for (auto& a : l)
+//    {
+//        cout << a << " ";
+//    }
+//}
+
+//#include <iostream>
+//#include <fstream>
+//#include <vector>
+//#include <string>
+//
+//using namespace std;
+//
+//
+//void printCharArray(char a[], int size)
+//{
+//    for (int x = 0; x < size; x++)
+//    {
+//        if (a[x] == '\0')
+//        {
+//            break;
+//        }
+//
+//        cout << a[x];
+//    }
+//    cout << endl;
+//}
+//
+//class students{
+//public:
+//    char uzvards[21];
+//    char vards[16];
+//    char stdAplNR[9];
+//    int semestraNR;
+//    int atzimes[10];
+//
+//    students () 
+//    {
+//        uzvards[20] = '\0';
+//        vards[15] = '\0';
+//        stdAplNR[8] = '\0';
+//    }
+//
+//    void print() 
+//    {
+//        printCharArray(uzvards, 21);        
+//        printCharArray(vards, 16);
+//        printCharArray(stdAplNR, 9);
+//        cout << semestraNR << endl;
+//        
+//        for (int x = 0; x < 10; x++)
+//        {
+//            cout << atzimes[x] << " ";
+//        }
+//        cout << endl;
+//    }
+//};
+//
+//int main() 
+//{
+//    fstream fout("test.bin", ios::out);
+//
+//    students s, n;
+//    strcpy_s(s.uzvards, 21, "Toliasvili");
+//    strcpy_s(s.vards, 16, "Georgs");
+//    strcpy_s(s.stdAplNR, 9, "GT20010");
+//    s.semestraNR = 1;
+//
+//    for (int x = 0; x < 10; x++) 
+//    {
+//        s.atzimes[x] = 6;
+//    }
+//
+//    strcpy_s(n.uzvards, 21, "Kalberga");
+//    strcpy_s(n.vards, 16, "Gunta");
+//    strcpy_s(n.stdAplNR, 9, "GK00010");
+//    n.semestraNR = 3;
+//
+//    for (int x = 0; x < 10; x++)
+//    {
+//        n.atzimes[x] = 10;
+//    }
+//
+//    fout.write((char*)&s, sizeof(students));
+//    fout.write((char*)&n, sizeof(students));
+//    fout.close();
+//
+//    fstream fin("test.bin", ios::in);
+//
+//    vector<students> v;
+//
+//    students temp;
+//
+//    while (fin.peek() != EOF)
+//    {
+//        fin.read((char*)&temp, sizeof(students));
+//        v.push_back(temp);
+//    }
+//
+//    fin.close();
+//
+//    cout << "Current file:" << endl << endl;
+//    for (int x = 0; x < v.size(); x++)
+//    {
+//        v[x].print();
+//        cout << endl;
+//    }
+//
+//    char students[9];
+//    int semestris, kartas, atzime;
+//
+//    cout << "Apliecibas numurs" << endl;
+//    cin >> students;
+//
+//    cout << "Semestra numurs" << endl;
+//    cin >> semestris;
+//
+//    cout << "Jaunas atzimes kartas numurs" << endl;
+//    cin >> kartas;
+//
+//    cout << "Jauna atzime" << endl;
+//    cin >> atzime;
+//
+//    fout.open("test.bin", ios::out);
+//
+//    for (int x = 0; x < v.size(); x++)
+//    {
+//        if (v[x].stdAplNR == students && v[x].semestraNR == semestris)
+//        {
+//            v[x].atzimes[kartas - 1] = atzime;
+//        }
+//
+//        fout.write((char*)&v[x], sizeof(students));
+//    }
+//
+//    fout.close();
+//
+//    fin.open("test.bin", ios::in);
+//
+//    cout << "End file:" << endl << endl;
+//
+//    while (fin.peek() != EOF)
+//    {
+//        fin.read((char*)&temp, sizeof(students));
+//        temp.print();
+//    }
+//
+//    fin.close();
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//struct Node
+//{
+//    int info;
+//    Node* next;
+//};
+//
+//void ChangeList(Node* listHead)
+//{
+//    Node* curr, *prev, *n;
+//    curr = prev = listHead;
+//
+//    while (curr->next != NULL)
+//    {
+//        prev = curr;
+//        curr = curr->next;
+//    }
+//
+//    curr->next = listHead->next;
+//    listHead->next = NULL;
+//    prev->next = listHead;
+//    listHead = curr;
+//
+//    prev = curr;
+//
+//    while (curr != NULL)
+//    {
+//        if (curr->info == 0) 
+//        {
+//            if (listHead == curr)
+//            {
+//                listHead = curr->next;
+//            }
+//            else 
+//            {
+//                prev->next = curr->next;
+//            }
+//
+//            n = curr;
+//            curr = curr->next;
+//            delete n;
+//            continue;
+//        }
+//
+//        prev = curr;
+//        curr = curr->next;
+//    }
+//
+//    while (listHead != NULL)
+//    {
+//        cout << listHead->info << endl;
+//        listHead = listHead->next;
+//    }
+//}
+//
+//int main()
+//{
+//    Node* listHead = NULL, * curr, * last = NULL;
+//
+//    const int arrSize = 7;
+//    int info[arrSize] = { 1,2,0,3,4,0,5 };
+//
+//    for (int x = 0; x < arrSize; x++)
+//    {
+//        curr = new Node;
+//
+//        curr->info = info[x];
+//        curr->next = NULL;
+//
+//        if (listHead == NULL)
+//        {
+//            listHead = last = curr;
+//        }
+//        else
+//        {
+//            last->next = curr;
+//            last = curr;
+//        }
+//    }
+//
+//    ChangeList(listHead); 
+//}
+
+//#include <iostream>
+//#include <list>
+//#include <vector>
+//#include <map>
+//
+//using namespace std;
+//
+//int moveOddsToEnd(list<int>& l)
+//{
+//    list<int>::iterator i = l.begin();
+//    list<int>::iterator y;
+//
+//    bool evenFound;
+//    int currVal;
+//
+//    int valIndex = 0;
+//    map<int, int> m;
+//
+//    while (i != l.end())
+//    {
+//        if (*i % 2 == 0)
+//        {
+//            if (!m.count(*i))
+//            {
+//                m.insert(pair<int, int>(*i, valIndex));
+//                valIndex++;
+//            }
+//
+//            i++;
+//            continue;
+//        }
+//
+//        y = i;
+//        evenFound = false;
+//
+//        while (y != l.end())
+//        {
+//            if (*y % 2 == 0)
+//            {
+//                evenFound = true;
+//                break;
+//            }
+//
+//            y++;
+//        }
+//
+//        if (evenFound)
+//        {
+//            currVal = *i;
+//            i = l.erase(i);
+//            l.push_back(currVal);
+//
+//            continue;
+//        }
+//
+//        i++;
+//    }
+//
+//    return m.size();
+//}
+//
+//int main()
+//{
+//    list<int> l = { 1,6,5,4,6,3,7,9 };
+//
+//    cout << moveOddsToEnd(l) << endl;
+//
+//    for (auto& a : l)
+//    {
+//        cout << a << " ";
+//    }
+//}
+
+//#include <iostream>
+//#include <fstream>
+//#include <vector>
+//#include <string>
+//
+//using namespace std;
+//
+//struct zinas {
+//    char izdevumaNos[20];
+//    int veidaKods;
+//    int reizuSkaits;
+//    char valoda;
+//    char izdevejs[20];
+//    int izdevumaIndex;
+//
+//    void print()
+//    {
+//        cout << "Izdevuma nosaukums: " << izdevumaNos << endl;
+//        cout << "Izdevuma veida kods: " << veidaKods << endl;
+//        cout << "Iznaksanas reizu skaits menesi: " << reizuSkaits << endl;
+//        cout << "Valoda: " << valoda << endl;
+//        cout << "Izdevejs: " << izdevejs << endl;
+//        cout << "Izdevuma indekss: " << izdevumaIndex << endl;
+//    }
+//};
+//
+//void createFile()
+//{
+//    fstream fout("izdevumi.bin", ios::out);
+//
+//    vector<zinas> out;
+//
+//    zinas s;
+//    strcpy_s(s.izdevumaNos, 20, "Zvaigzne");
+//    s.veidaKods = 2;
+//    s.reizuSkaits = 333;
+//    s.valoda = 'L';
+//    strcpy_s(s.izdevejs, 20, "ABC");
+//    s.izdevumaIndex = 999;
+//
+//    out.push_back(s);
+//
+//    strcpy_s(s.izdevumaNos, 20, "Lacis");
+//    s.veidaKods = 1;
+//    s.reizuSkaits = 1000;
+//    s.valoda = 'V';
+//    strcpy_s(s.izdevejs, 20, "Depo");
+//    s.izdevumaIndex = 23;
+//
+//    out.push_back(s);
+//
+//    strcpy_s(s.izdevumaNos, 20, "Bumbieris");
+//    s.veidaKods = 3;
+//    s.reizuSkaits = 3;
+//    s.valoda = 'A';
+//    strcpy_s(s.izdevejs, 20, "ABC");
+//    s.izdevumaIndex = 2;
+//
+//    out.push_back(s);
+//
+//    for (int x = 0; x < out.size(); x++)
+//    {
+//        fout.write((char*)&out[x], sizeof(zinas));
+//    }
+//
+//    fout.close();
+//}
+//
+//int main()
+//{
+//    createFile();
+//
+//    fstream fin("izdevumi.bin", ios::in);
+//
+//    vector<zinas> in;
+//
+//    zinas temp;
+//
+//    while (fin.peek() != EOF)
+//    {
+//        fin.read((char*)&temp, sizeof(zinas));
+//        in.push_back(temp);
+//    }
+//
+//    fin.close();
+//
+//    cout << "Current file:" << endl << endl;
+//    for (int x = 0; x < in.size(); x++)
+//    {
+//        in[x].print();
+//        cout << endl;
+//    }
+//
+//    char izdevejaNos[20];
+//
+//    cout << "Ievadiet izdeveja nosaukumu: ";
+//    cin.get(izdevejaNos, 20);
+//
+//    cout << endl << "Visi " << izdevejaNos << " preses izdevumi:" << endl << endl;
+//
+//    for (int x = 0; x < in.size(); x++)
+//    {
+//        if (!strcmp(in[x].izdevejs, izdevejaNos))
+//        {
+//            in[x].print();
+//            cout << endl;
+//        }
+//    }
+//}
+
 #include <iostream>
 #include <fstream>
-#include <stdio.h>
 
 using namespace std;
 
-// If {} doesn't get added to variables then the IDE complains about them not having default initializers
-struct inputStruct {
-    int time{};
-    char action{};
-    char PK[12]{}; // + 1 size for \0
-    char CD[50]{};
+struct TreeNode
+{
+    int data;
+    TreeNode* left;
+    TreeNode* right;
 
-    inputStruct()
+    TreeNode (int d) 
     {
-        PK[11] = '\0';
-        // Marks the end of the data
-        // We don't do this to CD, because those characters are last in the line
-    };
+        this->data = d;
+        left = right = NULL;
+    }
 };
 
-struct outputStruct {
-    int time{};
-    char firstPK[12]{};
-    char lastPK[12]{};
+struct Data
+{
+    int x;
+    int y;
+    int z;
 };
 
-template <typename T>
-class node {
-public:
-    T info;
-    node<T>* next{};
-
-    node() {};
+struct Node 
+{
+    Data val;
+    Node* next;
 };
 
-void copyCharArray(char dest[], char source[])
+TreeNode* findNode(TreeNode* root, int data)
 {
-    for (int i = 0; source[i] != '\0'; i++)
+    if (root == NULL)
     {
-        dest[i] = source[i];
+        return NULL;
     }
+
+    if (root->data == data) 
+    {
+        return root;
+    }
+
+    TreeNode* left = findNode(root->left, data);
+
+    if (left != NULL)
+    {
+        return left;
+    }
+
+    TreeNode* right = findNode(root->right, data);
+
+    return right;
 }
 
-bool compareCharArray(char a[], char b[])
+void printNodesOnLevel(fstream& fout, TreeNode* root, int level)
 {
-    for (int i = 0; a[i] != '\0'; i++)
+    if (root == NULL || level < 0)
     {
-        if (a[i] != b[i])
-        {
-            return 0;
-        }
+        return;
     }
-    return 1;
+
+    if (level == 0)
+    {
+        fout << " " << root->data;
+        return;
+    }
+
+    printNodesOnLevel(fout, root->left, level - 1);
+    printNodesOnLevel(fout, root->right, level - 1);
 }
 
-void saveInput(ifstream& fin, node<inputStruct>*& first, node<inputStruct>*& current)
+int findTreeDepth(TreeNode* n)
 {
-    inputStruct newStruct;
-    node<inputStruct>* n = NULL;
-
-    while (!fin.eof())
+    if (n == NULL) 
     {
-        fin >> newStruct.time;
-
-        fin.clear(); // Ignores any errors
-        fin.ignore(1); // Ignoring next character in file
-        fin >> newStruct.action;
-
-        fin.clear();
-        fin.ignore(1);
-        fin >> newStruct.PK;
-
-        fin.clear();
-        fin.ignore(1);
-        fin >> newStruct.CD;
-
-        n = new node<inputStruct>;
-        n->info = newStruct;
-        n->next = NULL;
-
-        if (first == NULL)
-        {
-            first = current = n;
-        }
-        else
-        {
-            current->next = n;
-            current = current->next;
-        }
-    }
-}
-
-void printToFile(ofstream& fout, node<outputStruct>*& first)
-{
-    node<outputStruct>* n;
-
-    if (first == NULL)
-        // The file will be empty, if there is nothing to output
-    {
-        fout << 0;
+        return 0;
     }
     else
     {
-        // This code works on the server, but not on my computer.
-        if (first->next == NULL)
+        int lDepth = findTreeDepth(n->left);
+        int rDepth = findTreeDepth(n->right);
+
+        if (lDepth > rDepth) 
         {
-            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
+            return (lDepth + 1);
         }
         else 
         {
-            while (first->next != NULL)
-            {
-                fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
-
-                n = first;
-                first = first->next;
-                delete n;
-            }
-        }
-
-        delete first;
-
-        // This should work, but it doesn't. Works on my computer, but not on the server.
-        /*while (first != NULL)
-        {
-            fout << first->info.time << ' ' << first->info.firstPK << ' ' << first->info.lastPK << '\n';
-
-            n = first;
-            first = first->next;
-            delete n;
-        }*/
-    }
-}
-
-void addToOutputList(node<outputStruct>*& first, node<outputStruct>* n)
-{
-    node<outputStruct>* current, *prev = NULL;
-
-    if (first == NULL)
-    {
-        first = n;
-    }
-    else
-    {
-        current = first;
-
-        while (true)
-        {
-            if (current == NULL)
-            {
-                prev->next = n;
-                break;
-            }
-
-            if (current->info.time > n->info.time)
-            {
-                if (current == first)
-                {
-                    n->next = first;
-                    first = n;
-                    break;
-                }
-
-                prev->next = n;
-                n->next = current;
-                break;
-            }
-
-            prev = current;
-            current = current->next;
+            return (rDepth + 1);
         }
     }
 }
 
-node<outputStruct>* createNewOutputNode(node<inputStruct>*& first, node<inputStruct>*& current)
+void deleteTree(TreeNode* node)
 {
-    outputStruct s;
-    node<outputStruct>* n = new node<outputStruct>;
-
-    if (first->info.action == 'B')
+    if (node == NULL) 
     {
-        copyCharArray(s.firstPK, current->info.PK);
-        copyCharArray(s.lastPK, first->info.PK);
-    }
-    else
-    {
-        copyCharArray(s.firstPK, first->info.PK);
-        copyCharArray(s.lastPK, current->info.PK);
+        return;
     }
 
-    s.time = current->info.time;
+    deleteTree(node->left);
+    deleteTree(node->right);
 
-    n->info = s;
-    n->next = NULL;
-
-    return n;
-}
-
-void createOutput(ofstream& fout, node<inputStruct>*& first, node<inputStruct>*& current)
-{
-    bool pairFound;
-
-    node<inputStruct>* prev, *n;
-
-    node<outputStruct>* oFirst = NULL;
-
-    while (first != NULL)
-    {
-        pairFound = false;
-
-        prev = first;
-        current = first->next;
-
-        while (current != NULL && !pairFound)
-        {
-            if (first->info.action != current->info.action && compareCharArray(first->info.CD, current->info.CD))
-            {
-                addToOutputList(oFirst, createNewOutputNode(first, current));
-
-                n = first;
-
-                if (first->next == current)
-                {
-                    first = current->next;
-                }
-                else
-                {
-                    first = first->next;
-                }
-
-                delete n;
-
-                n = current;
-                prev->next = current->next;
-                delete n;
-
-                pairFound = true;
-                break;
-            }
-
-            prev = current;
-            current = current->next;
-        }
-
-        if (!pairFound && current == NULL)
-            // If there is no pair for the first element, it gets deleted
-        {
-            n = first;
-            first = first->next;
-            delete n;
-        }
-    }
-
-    printToFile(fout, oFirst);
+    delete node;
 }
 
 int main()
@@ -2406,15 +3109,199 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ifstream fin("exchange.in");
-    ofstream fout("exchange.out");
+    fstream fin("team.in", ios::in);
 
-    node<inputStruct>* first = NULL, * current = NULL;
+    int currVal;
 
-    saveInput(fin, first, current);
+    Node* head = NULL;
+    Node* currNode = NULL;
+    Node* n;
 
-    createOutput(fout, first, current);
+    while (fin.peek() != EOF)
+    {
+        n = new Node();
+        n->next = NULL;
+
+        fin >> currVal;
+        n->val.x = currVal;
+
+        fin >> currVal;
+        n->val.y = currVal;
+
+        fin >> currVal;
+        n->val.z = currVal;
+
+        if (head == NULL)
+        {
+            head = currNode = n;
+        }
+        else
+        {
+            currNode->next = n;
+            currNode = n;
+        }
+    }
 
     fin.close();
+
+    TreeNode* root = NULL;
+    TreeNode* curr;
+
+    if (head != NULL)
+    {
+        currNode = head;
+
+        while (currNode != NULL)
+        {
+            n = head;
+            bool found = false;
+
+            while (n != NULL)
+            {
+                if (n != currNode)
+                {
+                    if (currNode->val.x == n->val.z || currNode->val.x == n->val.y)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                n = n->next;
+            }
+
+            if (!found)
+            {
+                Data temp = currNode->val;
+                currNode->val = head->val;
+                head->val = temp;
+                break;
+            }
+
+            currNode = currNode->next;
+        }
+
+        currNode = head;
+        Node* inputNode = head->next;
+
+        while (currNode != NULL)
+        {
+            Node* femaleNode = NULL;
+            Node* maleNode = NULL;
+
+            if (currNode->val.y == 0) { femaleNode = currNode; }
+            if (currNode->val.z == 0) { maleNode = currNode; }
+
+            n = currNode->next;
+
+            while (femaleNode == NULL || maleNode == NULL)
+            {
+                if (femaleNode == NULL)
+                {
+                    if (n->val.x == currNode->val.y)
+                    {
+                        femaleNode = n;
+                    }
+                }
+
+                if (maleNode == NULL)
+                {
+                    if (n->val.x == currNode->val.z)
+                    {
+                        maleNode = n;
+                    }
+                }
+
+                n = n->next;
+            }
+
+            if (currNode->val.x == 0)
+            {
+                break;
+            }
+
+            Data temp;
+            int changePos = 0;
+
+            currVal = currNode->val.x;
+            curr = findNode(root, currVal);
+
+            if (curr == NULL)
+            {
+                root = new TreeNode(currVal);
+                curr = root;
+            }    
+
+            if (femaleNode != currNode)
+            {
+                if (inputNode == maleNode)
+                {
+                    temp = inputNode->next->val;
+                    inputNode->next->val = maleNode->val;
+                    maleNode->val = temp;
+
+                    curr->right = new TreeNode(currNode->val.z);
+
+                    changePos++;
+
+                    maleNode = currNode;
+                }
+
+                temp = inputNode->val;
+                inputNode->val = femaleNode->val;
+                femaleNode->val = temp;
+
+                curr->left = new TreeNode(currNode->val.y);
+
+                changePos++;
+            }
+
+            if (maleNode != currNode)
+            {
+                if (femaleNode == currNode)
+                {
+                    temp = inputNode->val;
+                    inputNode->val = maleNode->val;
+                    maleNode->val = temp;
+                }
+                else 
+                {
+                    temp = inputNode->next->val;
+                    inputNode->next->val = maleNode->val;
+                    maleNode->val = temp;
+                }
+
+                curr->right = new TreeNode(currNode->val.z);
+
+                changePos++;
+            }
+
+            for (int x = 0; x < changePos; x++)
+            {
+                inputNode = inputNode->next;
+            }
+
+            currNode = currNode->next;
+        }
+    }
+
+    while (head != NULL)
+    {
+        n = head;
+        head = head->next;
+        delete n;
+    }
+
+    fstream fout("team.out", ios::out);
+
+    for (int x = findTreeDepth(root) - 1; x != -1; x--)
+    {
+        fout << x << ":";
+        printNodesOnLevel(fout, root, x);
+        fout << '\n';
+    }
+
     fout.close();
+
+    deleteTree(root);
 }
